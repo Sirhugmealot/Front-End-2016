@@ -1,0 +1,49 @@
+body{
+	background-image: url("Imagenes/back.jpg");
+	background-position: center;
+	
+}
+.contain{
+	
+	max-width: 100%;
+	display: block;
+	background-color: rgba(255,255,255,0.1);
+
+
+	
+}
+.row{
+
+	width: 100%;
+	display: inline-block;
+	
+	
+
+}
+.colum{
+	display: inline-block;
+
+}
+.colm{
+	text-align: center;
+	display: inline-block;
+	width: 40%;
+
+}
+
+
+#menu li{
+	display: inline;
+	float: right;
+
+}
+#menu li a{
+	
+	text-decoration: none;
+}
+#menu li :hover{
+	color: orange;
+}
+#menu li a:visited{
+	color: #802030;
+}
