@@ -41,9 +41,15 @@ body{
 	
 	text-decoration: none;
 }
-#menu li :hover{
-	color: orange;
+#menu li a:link{
+	color:black;
 }
 #menu li a:visited{
 	color: #802030;
+}
+#menu li a:hover{
+	color: orange;
+}
+#menu li a:active{
+	color:yellow;
 }
