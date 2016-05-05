@@ -1,0 +1,60 @@
+*{
+	box-sizing: border-box; 
+	display: block;
+	float: left;
+	padding: 1px 1px;
+}
+*[class^="col"]{
+	
+
+}
+
+
+.contain{
+	text-align: center;
+	max-width: 100%;
+	
+	
+	display: block;
+}
+.row{
+
+	max-width: 100%;
+	
+	display: block;
+}
+.row img{
+	max-width: 100%;
+	
+	display: block;
+	display: inline-block;
+}
+.colm{
+	text-align: center;
+	max-width: 50%;
+	display: inline-block;
+	display: block;}
+
+
+
+
+.colum{
+	text-align: center;
+	max-width: 25%;
+	
+	display: inline-block;
+	display: block;
+}
+
+.fila{
+	text-align: center;
+	display: inline-block;
+	display: block;
+}
+.fila img{
+	max-width: 100%;
+	
+	display: inline-block;
+	display: block;
+}
+
