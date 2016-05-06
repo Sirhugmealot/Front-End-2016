@@ -33,8 +33,11 @@
 	display: inline-block;
 	display: block;
 	float: left;
+	height: 600px;
 }
-
+.colm img{
+	height: 619px;
+}
 
 
 
@@ -57,5 +60,6 @@
 	float: left;
 	display: inline-block;
 	display: block;
+	height: 308px;
 }
 
