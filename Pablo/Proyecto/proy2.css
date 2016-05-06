@@ -3,31 +3,43 @@ body{
 	background-position: center;
 	
 }
-.contain{
-	
+.cuerpo{
 	max-width: 100%;
+
+}
+.container{
+	
+	width: 100%;
 	display: block;
 	background-color: rgba(255,255,255,0.1);
 
 
 	
 }
-.row{
+.fill{
 
 	width: 100%;
 	display: inline-block;
+
 	
 	
 
 }
-.colum{
+.columna{
+	float: right;
 	display: inline-block;
+	width: 175px;
 
 }
-.colm{
-	text-align: center;
+.columna ul{
+	display: inline;
+	padding: 5px 5px;
+	text-align: right;
+}
+.column{
+	float: left;	
 	display: inline-block;
-	width: 40%;
+	width: 20%;
 
 }
 
