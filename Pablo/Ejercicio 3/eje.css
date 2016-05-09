@@ -19,8 +19,8 @@
 }
 .fila{
 	width: 100%;
-	height: 25%;
-	float: center;
+	height: 25px;
+	
 	display: block;
 	padding-top: 20px;
 
