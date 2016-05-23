@@ -1,5 +1,8 @@
 $(function(){
-	$('form input[type=submit]').on('click',onClick);
+	var form = $('form');
+	form 
+		.find('input[type=submit]')
+		.on('click',onClick);
 	
 
 	/*function onClick(){
@@ -22,7 +25,8 @@ $(function(){
 			url:'/pepe',
 			method:'POST',
 			data:{
-				nombre:$('input[type=text]').val()
+				nombre:form.find('input[type=text]').val(),
+				pass:form.find('input[type=password]').val()
 			},
 			success: function(data){
 				console.log(data);
@@ -32,13 +36,6 @@ $(function(){
 			return false;
 			}
 
-	/*function onClick(){
-		$.get(
-			url:'/pepe',
-			data:{nombre: $},
-			success:function(data){
-					console.log('respuesta del server',data);
-			})};*/
 
 	
 

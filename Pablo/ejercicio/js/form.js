@@ -1,7 +1,8 @@
 $(function(){
-	$('form input [type=submit]').on('click', onClick);
+	$('form input[type=submit]').on('click',onClick);
 
 	function onClick(){
+		alert('muy bien');
 
 	}
 });

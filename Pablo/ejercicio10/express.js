@@ -7,7 +7,7 @@ server.use(express.static('public')); //q tiene q instalar, q plugins/q hacer cu
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true })); 
 
-server.get('/pepe', function (req, res, next) {
+/*server.get('/pepe', function (req, res, next) {
 	console.log(req.query);
 	var esta = {
 		'cuelga':req.query.nombre,
@@ -16,7 +16,7 @@ server.get('/pepe', function (req, res, next) {
 	};
 
   res.send(esta);
-}); //funciona en la api, postman, hace llamado por ajax
+}); //funciona en la api, postman, hace llamado por ajax*/
 
 server.post('/pepe', function (req, res, next) {
 	console.log('body', req.body);
@@ -24,13 +24,15 @@ server.post('/pepe', function (req, res, next) {
 	var esta = {
 		'nombre':req.query.nombre,
 		'pass':req.query.pass
-		};
-	if (req.body.nombre === 'pablo' && req.body.pass === 'esta'){
+	};
+	if (!req.body.nombre.lenght || !req.body.pass.lenght){
+		return res.send('campos vacios')
+	} else {	if (req.body.nombre === 'pablo' && req.body.pass === 'esta'){
 	return res.send({
 		usuarioCorrecto:'true',
 		passCorrecto:'true'
 	});
-	} else {  res.send(esta);}
+	} else {  res.send(esta);}}
 });
 
 
