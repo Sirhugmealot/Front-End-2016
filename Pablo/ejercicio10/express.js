@@ -23,14 +23,17 @@ server.post('/pepe', function (req, res, next) {
 	console.log('querystring',req.query);
 	var esta = {
 		'nombre':req.query.nombre,
+		'email':req.query.email,
 		'pass':req.query.pass
 	};
-	if (!req.body.nombre.lenght || !req.body.pass.lenght){
+	if (!req.body.nombre.length ||req.body.email.lenght || !req.body.pass.length){
 		return res.send('campos vacios')
-	} else {	if (req.body.nombre === 'pablo' && req.body.pass === 'esta'){
-	return res.send({
-		usuarioCorrecto:'true',
-		passCorrecto:'true'
+	} else {	
+		if (req.body.nombre === 'pablo' && req.body.email === 'pab@pab.com' && req.body.pass === 'esta'){
+			return res.send({
+			usuarioCorrecto:'true',
+			emailCorrecto:'true',
+			passCorrecto:'true'
 	});
 	} else {  res.send(esta);}}
 });
