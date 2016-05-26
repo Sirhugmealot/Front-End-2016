@@ -49,7 +49,17 @@ server.get('/persona/:id', function(req,res,next){ //listado individual
 	var pers = req.params.id;
 	console.log(pers);
 	if(pers){
-		res.send(200,persona[pers]);
+		var	b=0,
+			i=0;
+		while (b==0 && i<persona.length){
+			if(pers==persona[i].id){
+				b=1;
+				res.send(200,persona[i]);
+			}
+			else {
+				i++;
+			}
+		}
 		
 	}
 	else {res.send(404,'la cagaste mi wuen');}
@@ -85,6 +95,7 @@ server.post('/persona/:id', function(req,res,next){
 		if (persona[id]){
 			res.send(201,persona[id]);
 		}
+
 		else {res.send(404,'la cagaste mi wuen')}
 		return next();
 });
