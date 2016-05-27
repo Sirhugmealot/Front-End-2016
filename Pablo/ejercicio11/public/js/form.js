@@ -3,11 +3,13 @@ $(function(){
 		$('.container').append('<button id="1">'+'Full List'+'</button>');
 		$('.container').append('<button id="2">'+'Get One'+'</button>');
 		$('.container').append('<button id="3">'+'Add User'+'</button>');
-		$('.container').append('<button id="4">'+'delete User'+'</button>');
+		$('.container').append('<button id="4">'+'Delete User'+'</button>');
+		$('.container').append('<button id="5">'+'TODO'+'</button>');
 		$('#1').on('click',fullList);
 		$('#2').on('click',oneList);
 		$('#3').on('click',addUser);
 		$('#4').on('click',removeUser);
+		$('#5').on('click',toDo);
 
 		fullList();
 		
@@ -65,18 +67,7 @@ function oneList(){
 
 
 function addUser(){
-	$('#inpt1').remove();
-	$('#inpt2').remove();
-	$('#inpt3').remove();
-	$('#subm').remove();
-	$('#ess').remove();
-	$('.container').append('<row id="ess">'+'</row>');
-	$('#ess').append('<br><p>'+'Nombre:'+'</p><input id="inpt1">'+'</input>');
-	$('#ess').append('<br><p>'+'Edad:'+'</p><input id="inpt2">'+'</input>');
-	$('#ess').append('<br><p>'+'Email:'+'</p><input id="inpt3">'+'</input>');
-	$('#ess').append('<br><button id="subm">'+'Add User'+'</button>');
-
-
+	reduccion();
 	$('#subm').off('click').on('click',function(){
 		var user = {};
 			user.nombre = $('#inpt1').val();
@@ -91,17 +82,7 @@ function addUser(){
 				email:user.email
 				},
 			success: function(data){
-				$('#inpt1').remove();
-				$('#inpt2').remove();
-				$('#inpt3').remove();
-				$('#subm').remove();
-				$('#ess').remove();
-				$('.container').append('<row id="ess">'+'</row>');
-				$('#ess').append('<br><p>'+'Nombre:'+'</p><input id="inpt1">'+'</input>');
-				$('#ess').append('<br><p>'+'Edad:'+'</p><input id="inpt2">'+'</input>');
-				$('#ess').append('<br><p>'+'Email:'+'</p><input id="inpt3">'+'</input>');
-				$('#ess').append('<br><button id="subm">'+'Add User'+'</button>');
-				$('#ess').append('<br><br><span id="">'+'User Added'+'</span>');	
+				reduccion();
 			}
 		});
 	}); 
@@ -142,6 +123,57 @@ function removeUser(){
 	});
 	return false;
 } //cierra lista singular
+
+
+function reduccion(){
+	$('#inpt1').remove();
+	$('#inpt2').remove();
+	$('#inpt3').remove();
+	$('#subm').remove();
+	$('#ess').remove();
+	$('.container').append('<row id="ess">'+'</row>');
+	$('#ess').append('<br><p>'+'Nombre:'+'</p><input id="inpt1">'+'</input>');
+	$('#ess').append('<br><p>'+'Edad:'+'</p><input id="inpt2">'+'</input>');
+	$('#ess').append('<br><p>'+'Email:'+'</p><input id="inpt3">'+'</input>');
+	$('#ess').append('<br><button id="subm">'+'Add User'+'</button>');
+	$('#ess').append('<br><br><span id="">'+'User Added'+'</span>');
+}
+
+function toDo(){
+	var i =0;
+	$('#ess').remove();
+	$('.container').append('<div id="ess">'+'</row>');
+	$('#ess').append('<form/>');
+	$('#inpt1').remove();
+	$('form').append('<br><p>'+'TODO List'+'</p><input id="inpt1">'+'</input>');
+	
+	$('form').off('submit').on('submit', agregarTarea.bind(this));
+	$('#borrar'+i).attr('data-id', i).off('click').on('click', limpiarlo);
+	
+	function agregarTarea(){
+		var todo = $('#inpt1').val();
+		i++;
+		$('form').append('<div id="jss'+i+'"/>');
+		$('#jss'+i).append('<br><span id="todolisto'+i+'">'+todo+'</span><button id="borrar'+i+'">'+'X'+'</button>');
+		return false;
+	}
+	function limpiarlo(){
+
+		var iNUEVO = $(this).attr('data-id');
+
+		console.log('ENTRE ACA GUACHO');
+	 	$('#jss'+iNUEVO).remove();
+	 
+		 return false;
+	}
+
+	
+}	
+
+
+
+
+
 
 
 /*
