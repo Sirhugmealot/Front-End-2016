@@ -47,7 +47,7 @@ server.get('/persona/', function(req,res,next){ //listado completo
 
 server.get('/persona/:id', function(req,res,next){ //listado individual
 	var pers = req.params.id;
-	console.log(pers);
+	
 	if(pers){
 		var	b=0,
 			i=0;
@@ -67,7 +67,7 @@ server.get('/persona/:id', function(req,res,next){ //listado individual
 	return next();
 });
 
-server.put('/persona/:id', function(req,res,next){
+/*server.put('/persona/:id', function(req,res,next){
 	var newId = req.params.id,
 		newName = req.query.nombre,
 		newAge = req.query.edad,
@@ -82,15 +82,15 @@ server.put('/persona/:id', function(req,res,next){
 	}
 	else {res.send(404,'la cagaste mi wuen');}
 	return next();
-});
+});*/
 
-server.post('/persona/:id', function(req,res,next){
+server.post('/persona', function(req,res,next){
 	var id = persona.length;
 	var user = {};
 		user.id = id+1;
-		user.name = req.query.nombre;
-		user.edad = req.query.edad;
-		user.email = req.query.email;
+		user.nombre = req.body.nombre;
+		user.edad = req.body.edad;
+		user.email = req.body.email;
 		persona.push(user);
 		if (persona[id]){
 			res.send(201,persona[id]);
@@ -100,6 +100,28 @@ server.post('/persona/:id', function(req,res,next){
 		return next();
 });
 
+server.delete('/persona/:id',function(req,res,next){
+	var pers = req.params.id;
+	if(pers){
+		var	b=0,
+			i=0;
+		while (b==0 && i<persona.length){
+			if(pers==persona[i].id){
+				b=1;
+				persona.splice(i,1);
+				res.send(202,'Usuario eliminado');
+			}
+			else {
+				i++;
+			}
+		}
+		
+	}
+	else {res.send(404,'la cagaste mi wuen');}
+	
+	return next();
+
+});
 
 /*server.post('/pepe', function (req, res, next) {
 	console.log('body', req.body);
