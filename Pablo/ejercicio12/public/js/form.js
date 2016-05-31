@@ -1,17 +1,24 @@
-$(function(){
-	var form = $('container');
-		$('.container').append('<button id="a1">'+'Full List'+'</button>');
-		$('.container').append('<button id="a2">'+'Get One'+'</button>');
-		$('.container').append('<button id="a3">'+'Add User'+'</button>');
-		$('.container').append('<button id="a4">'+'Delete User'+'</button>');
-		$('.container').append('<button type="button" id="a5">'+'TODO'+'</button>');
-		$('#a1').on('click',fullList);
-		$('#a2').on('click',oneList);
-		$('#a3').on('click',addUser);
-		$('#a4').on('click',removeUser);
-		$('#a5').on('click',toDo);
+//var ;
+var botoooness,
+	lissta;
 
-		fullList();
+$(function(){
+	var form = $('container'),
+		templateContainer = $('#template');
+		templateContainer.load('/todo/todotemplate.html',function(){
+			botoooness = templateContainer.html();
+			$('.container').append(botoooness);
+			$('#a1').on('click',fullList);
+			$('#a2').on('click',oneList);
+			$('#a3').on('click',addUser);
+			$('#a4').on('click',removeUser);
+			$('#a5').on('click',toDo);
+			fullList();
+});
+		
+		
+
+		
 		
 function fullList(){
 	$.get({
@@ -24,30 +31,38 @@ function fullList(){
 			},
 		success: function(data){
 			$('#ess').remove();
-			$('.container').append('<row id="ess">'+'</row>');
-			for(var i =0 ; i< data.length;i++){
-					creando(data[i])
-						}
+			$('.container').append('<div id="ess">'+'</div>');
+			var templateCont = $('#ess2');
+			templateCont.load('/todo/todolista.html',function(){
+				lissta = templateCont.html();
+				for(var i =0 ; i< data.length;i++){
+					var replacing = lissta.replace(/%id%/g,data[i].id)
+										.replace(/%nombre%/gi,data[i].nombre)
+										.replace(/%edad%/gi,data[i].edad)
+										.replace(/%email%/gi,data[i].email);
+					$('#ess').append(replacing);
+			}
+			});
+			
+		
 			}
 		});
 	return false;
 }//cierra lista completa
 
 function oneList(){
-	$('#inpt').remove();
 	$('#ess').remove();
-	$('.container').append('<row id="ess">'+'</row>');
+	$('.container').append('<div id="ess" style="display:inline">'+'</div>');
 	$('#subm').remove();
-	$('#ess').append('<input id="inpt">'+'</input>');
-	$('#ess').append('<button id="subm">'+'Search'+'</button>');
+	$('#ess').append('<input id="inpt">'+'</input>'+'<button id="subm">'+'Search'+'</button>');
+	
 
 	$('#subm').off('click').on('click',function(){
 		
 
 		var entra = $('#inpt').val();
 			$('#ess').remove();
-			$('.container').append('<row id="ess">'+'</row>');
-
+			$('.container').append('<div id="ess">'+'</div>');
 			$.get({
 			url:'/persona/' + entra,
 			data:{
@@ -82,6 +97,7 @@ function addUser(){
 				},
 			success: function(data){
 				reduccion();
+				$('#ess').append('<br><br><span id="">'+'User Added'+'</span>');
 			}
 		});
 	}); 
@@ -90,19 +106,16 @@ function addUser(){
 
 
 function removeUser(){
-	$('#inpt').remove();
 	$('#ess').remove();
-	$('.container').append('<row id="ess">'+'</row>');
+	$('.container').append('<div id="ess" style="display:inline">'+'</div>');
 	$('#subm').remove();
-	$('#ess').append('<input id="inpt">'+'</input>');
-	$('#ess').append('<button id="subm">'+'Remove'+'</button>');
+	$('#ess').append('<input id="inpt">'+'</input>' + '<button id="subm">'+'Remove'+'</button>');
+	
 
 	$('#subm').off('click').on('click',function(){
-		
-
 		var entra = $('#inpt').val();
 			$('#ess').remove();
-			$('.container').append('<row id="ess">'+'</row>');
+			$('.container').append('<div id="ess">'+'</div>');
 
 			$.ajax({
 			url:'/persona/' + entra,
@@ -114,7 +127,7 @@ function removeUser(){
 				email:''
 			},
 			success: function(){
-
+				$('#ess').append('<br><br><span id="">'+'User Removed'+'</span>');
 			}
 			}).fail(function() {
 				alert('la has cagado');
@@ -125,29 +138,24 @@ function removeUser(){
 
 
 function reduccion(){
-	$('#inpt1').remove();
-	$('#inpt2').remove();
-	$('#inpt3').remove();
-	$('#subm').remove();
+	var completeando = 	'<br><p>'+'Nombre:'+'</p><input id="inpt1">'+'</input>' +
+						'<br><p>'+'Edad:'+'</p><input id="inpt2">'+'</input>' +
+						'<br><p>'+'Email:'+'</p><input id="inpt3">'+'</input>' +
+						'<br><button id="subm">'+'Add User'+'</button>' ;
 	$('#ess').remove();
-	$('.container').append('<div class="row" id="ess">'+'</div>');
-	$('#ess').append('<br><p>'+'Nombre:'+'</p><input id="inpt1">'+'</input>');
-	$('#ess').append('<br><p>'+'Edad:'+'</p><input id="inpt2">'+'</input>');
-	$('#ess').append('<br><p>'+'Email:'+'</p><input id="inpt3">'+'</input>');
-	$('#ess').append('<br><button id="subm">'+'Add User'+'</button>');
-	$('#ess').append('<br><br><span id="">'+'User Added'+'</span>');
+	$('.container').append('<div class="div" id="ess">'+'</div>');
+	$('#ess').append(completeando);
 } //cierra bloque de quitar y agregar 
 
 function toDo(){
-	var i =0;
+	var i =0,
+		todolistadoooo =	'<p>TODO List</p><input id="inpt1" type="text" name="inpt1" />'+
+							'<p>TODO Date</p><input id="inpt2" type="date" name="inpt2" />'+
+							'<button type="submit" style="display:none">save</button>'	;
 	$('#ess').remove();
-	$('#inpt1').remove();
-	$('#inpt2').remove();
 	$('.container').append('<div id="ess">'+'</div>');
 	$('#ess').append('<form>'+'</form>');
-	$('form').append('<p>TODO List</p><input id="inpt1" type="text" name="inpt1" />');
-	$('form').append('<p>TODO Date</p><input id="inpt2" type="date" name="inpt2" />');
-	$('form').append('<button type="submit" style="display:none">save</button>');
+	$('form').append(todolistadoooo);
 	$('form').off('submit').on('submit', agregarTarea);
 		
 	function agregarTarea(){
@@ -172,12 +180,9 @@ function toDo(){
 	}	
 }	
 
-function creando(data){
-	    $('#ess').append('<li>' + data.id + '</li>');
-	    $('#ess').append('<li>' + data.nombre + '</li>');
-	    $('#ess').append('<li>' + data.edad + '</li>');
-	    $('#ess').append('<li>' + data.email + '</li>'+'<br>');			
-	}
+//function creando(data){
 
-		return false;
+
+
+//		return false;
 });

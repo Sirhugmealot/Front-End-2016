@@ -33,8 +33,9 @@ var express = require ('express'),
 	},
 
 
-	];
-
+	],
+	idgen = persona.length+1;
+	
 server.use(express.static('public')); //q tiene q instalar, q plugins/q hacer cuando crashea
 //todos los archivos staticos los saca de public
 server.use(bodyParser.json());
@@ -87,7 +88,7 @@ server.get('/persona/:id', function(req,res,next){ //listado individual
 server.post('/persona', function(req,res,next){
 	var id = persona.length;
 	var user = {};
-		user.id = id+1;
+		user.id = idgen++;
 		user.nombre = req.body.nombre;
 		user.edad = req.body.edad;
 		user.email = req.body.email;
