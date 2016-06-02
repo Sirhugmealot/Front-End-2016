@@ -2,7 +2,7 @@ var iniciando = (function toDo(){
 	var feerr = $('.container'),
 		i=0;
 	function init(){
-		templateContainer = $('#template');
+		var templateContainer = $('#template');
 		templateContainer.load('/template/todoestruct.html',function(){
 		var	todolistadoooo = templateContainer.html();
 			feerr.find('form').append(todolistadoooo);
@@ -42,6 +42,6 @@ var iniciando = (function toDo(){
 
 })();
 
-$(function(){
+/*$(function(){
 	iniciando.init();
-});
+});*/
