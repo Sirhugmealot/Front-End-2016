@@ -1,38 +1,122 @@
-var num = 1,
-	resultado = 0;
+var resultado;
 var calcular = (function calc(){
+	init();
 
-		
+	function tryParse(input){
+		input = parseInt(input,10);
+		if(isNaN(input)){
+			throw 'Numero Invalido';
+		}
+		return input;
+	}
 	function sumar(input){
-		resultado = resultado + input;
+		input = tryParse(input);
+		resultado += input;
 		return resultado;
 	}
 	function restar(input){
-		resultado = resultado - input;
+		input = tryParse(input);
+		resultado -= input;
 		return resultado;
 	}
 	function dividir(input){
-		num = num / input;
-		return num;
+		input = tryParse(input);
+		if (input===0){
+			throw 'La chingaste, no se divide por cero';
+		}
+		resultado = resultado / input;
+		return resultado;
 	}
 	function multi(input){
-		num = num * input;
-		return num;	
+		input = tryParse(input);
+		resultado *= input;
+		return resultado;	
 	}
 	function clear(){
-		num = 1;
-		resultado = 0;
-		return 'Valores originales restaurados';
+		init();
+		return resultado;
 	}
+	function init(){
+		resultado = 0;
+	}
+	function asignar(input){
+		input = tryParse(input);
+		resultado = input;
+		return resultado;
+	}
+	function obtener(){
+		return resultado
+	}
+
 	return {
 		sumar:sumar,
 		restar:restar,
 		dividir:dividir,
 		multi:multi,
-		clear:clear
+		clear:clear,
+		asignar:asignar,
+		obtener:obtener
 	}
 })();
 
+$(function(){
+	var $form,
+		inputNumero,
+		operacion,
+		concatenar,
+		numerito;
+	init();
+
+	function init(){
+		$form = $('.container');
+		inputNumero = $form.find('.input');
+		inicializar();
+		$('.numero').on('click',onNumero);
+		$('.operacion').on('click',onOperacion);
+	}
+	function onNumero(){
+		var numero = $(this).html();
+		if (concatenar){
+			numero = parseInt(inputNumero.val() + numero, 10);
+		}
+		concatenar = true;
+		inputNumero.val(numero);
+
+		if(!operacion){
+			calcular.asignar(numero);
+			numerito = numero;
+		}
+	}		
+	function onOperacion(){
+		var nueoperacion = $(this).data('operacion'),
+			b;
+		concatenar = false;
+		if(nueoperacion === 'clear'){
+			return inicializar();
+		}
+
+		if (nueoperacion === 'igual'){
+			if(operacion){
+			var	dosresultado = calcular[operacion](numerito);
+			inputNumero.val(dosresultado);
+			console.log(dosresultado);
+			}
+			return ;
+		}
+		
+		if(nueoperacion){
+			numerito = parseInt(inputNumero.val(),10);
+			operacion = nueoperacion;
+			console.log(operacion);
+		}
+	}
+	function inicializar(){
+		inputNumero.val(calcular.clear());
+		concatenar = true;
+		operacion = null;
+	}
+});
+/*
 $(function(){
 	var form = $('.container');
 		form.find('#1').on('click',uno);
@@ -104,4 +188,4 @@ $(function(){
 		
 	}
 	return false;
-});
+});*/
