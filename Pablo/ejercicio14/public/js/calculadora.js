@@ -84,12 +84,11 @@ $(function(){
 
 		if(!operacion){
 			calcular.asignar(numero);
-			numerito = numero;
+			//numerito = numero;
 		}
 	}		
 	function onOperacion(){
-		var nueoperacion = $(this).data('operacion'),
-			b;
+		var nueoperacion = $(this).data('operacion');
 		concatenar = false;
 		if(nueoperacion === 'clear'){
 			return inicializar();
