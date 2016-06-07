@@ -9,12 +9,12 @@ server.use(express.static('public')); //q tiene q instalar, q plugins/q hacer cu
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true })); 
 
-server.get('/persona/', function(req,res,next){ //listado completo
+server.get('/connectedin.herokuapp.com/person', function(req,res,next){ //listado completo
 	res.send(200,persona);
 	return next();
 });
 
-server.get('/persona/:id', function(req,res,next){ //listado individual
+/*server.get('/persona/:id', function(req,res,next){ //listado individual
 	var pers = req.params.id;
 	
 	if(pers){
@@ -34,26 +34,47 @@ server.get('/persona/:id', function(req,res,next){ //listado individual
 	else {res.send(404,'la cagaste mi wuen');}
 	
 	return next();
-});
-
-/*server.put('/persona/:id', function(req,res,next){
-	var newId = req.params.id,
-		newName = req.query.nombre,
-		newAge = req.query.edad,
-		newEmail = req.query.email;
-	console.log(newId);
-	console.log(newName);
-	if(persona[newId]){
-		persona[newId].nombre = newName;
-		persona[newId].edad  = newAge;
-		persona[newId].email = newEmail;
-		res.status(200).send(persona[newId]);
-	}
-	else {res.send(404,'la cagaste mi wuen');}
-	return next();
 });*/
 
-server.post('/persona', function(req,res,next){
+server.put('connectedin.herokuapp.com/person/:id', function(req,res,next){
+var newId = req.params.id,
+	newName = req.body.nombre,
+	newLast = req.body.apellido,
+	newGender = req.body.sexo,
+	newBirth = req.body.fecha,
+	newAddr = req.body.direcc,
+	newPhoto = req.body.foto,
+	newEmail = req.body.email,
+	newPass = req.body.contra,
+	newEdu = req.body.educ,
+	newExp = req.body.exp;
+var	b=0,
+	i=0;
+	if(persona.newId){
+		while (b==0 && i<persona.length){
+			if(newId==persona[i].id){
+				b=1;
+				persona[i].firstName = newName;
+				persona[i].edad = newAge;
+				persona[i].apellido = newLast;
+				persona[i].sexo = newGender;
+				persona[i].fecha = newBirth;
+				persona[i].direcc = newAddr;
+				persona[i].foto = newPhoto;
+				persona[i].email = newEmail;
+				persona[i].contra = newPass;
+				persona[i].educ = newEdu;
+				persona[i].exp = newExp;
+				res.status(200).send(persona[i]);
+			}
+			else i++;
+		}
+	}
+			else {res.send(404,'la cagaste mi wuen');}
+	return next();
+});
+
+/*server.post('/connectedin.herokuapp.com/person', function(req,res,next){
 	var id = persona.length;
 	var user = {};
 		user.id = idgen++;
@@ -68,9 +89,9 @@ server.post('/persona', function(req,res,next){
 
 		else {res.send(404,'la cagaste mi wuen')}
 		return next();
-});
+});*/
 
-server.delete('/persona/:id',function(req,res,next){
+/*server.delete('/persona/:id',function(req,res,next){
 	var pers = req.params.id;
 	if(pers){
 		var	b=0,
@@ -91,7 +112,7 @@ server.delete('/persona/:id',function(req,res,next){
 	
 	return next();
 
-});
+});*/
 
 /*server.post('/pepe', function (req, res, next) {
 	console.log('body', req.body);
