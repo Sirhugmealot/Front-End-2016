@@ -8,7 +8,21 @@ var agregar = (function(){
 			url:'http://connectedin.herokuapp.com/person',
 			method:'GET',
 			success: function(data){
-				var myDiv = '<table>';
+				var myDiv = '<table id="jojojo">' + '<tr>' + 
+							'<th> ID </th>' +
+							'<th> First Name </th>' +
+							'<th> Last Name </th>' +
+							'<th> Gender </th>' +
+							'<th> Birthday </th>' +
+							'<th> Address </th>' +
+							'<th> Photo </th>' +
+							'<th> Email </th>' +
+							'<th> Password </th>' +
+							'<th> Education </th>' +
+							'<th> Experience </th>' +
+							'<th> Modifications </th>' +
+							'</tr>';
+					form.find('#jejeje').append(myDiv);
 				for(var i =0 ; i< data.length;i++){
 					var replacing = '<tr>' + '<td>' + data[i]._id + '</td>' + 
 									'<td>' + data[i].firstName + '</td>' + 
@@ -20,14 +34,23 @@ var agregar = (function(){
 									'<td>' + data[i].email + '</td>' + 
 									'<td>' + data[i].password + '</td>' + 
 									'<td>' + data[i].education + '</td>' + 
-									'<td>' + data[i].experience + '</td>' + '</tr>';
-					myDiv += replacing;
+									'<td>' + data[i].experience + '</td>' + 
+									'<td>' + '<button id="'+i+'" class="btn btn-danger">Modify</button>' + '</td>'
+									'</tr>';
 					
+					form.find("#jojojo").append(replacing);
+					form.find('#'+i).attr('data-id', i).off('click').on('click',function(){
+						console.log(i);
+						/*	function modifyUser(data){
+	 					var iN = $(this).attr('data-id');
+	 					$.ajax({
+	 					url:'http://connectedin.herokuapp.com/person:'+data[iN]._id,
+	 					method: 'PUT',
+	 	});
+	 }*/
+					});
 				}
-					myDiv += '</table>';
-
-				
-				$("#jejeje").append(myDiv)
+				form.find("#jejeje").append('</table>');
 			}
 		});
 		return false;
@@ -62,4 +85,5 @@ var agregar = (function(){
 		return false;
 	}; 
 	 //cierra agregar usuario
+
 }());
