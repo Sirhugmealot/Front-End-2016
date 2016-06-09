@@ -180,9 +180,11 @@ function toDo(){
 	}	
 }	
 
-//function creando(data){
+function creando(data){
+    $('#ess').append('<li>' + data.id + '</li>');
+    $('#ess').append('<li>' + data.nombre + '</li>');
+    $('#ess').append('<li>' + data.edad + '</li>');
+    $('#ess').append('<li>' + data.email + '</li>'+'<br>');			
+}
 
-
-
-//		return false;
 });
