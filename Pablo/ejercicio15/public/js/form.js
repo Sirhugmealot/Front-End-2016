@@ -22,7 +22,7 @@ var agregar = (function(){
 							'<th> Experience </th>' +
 							'<th> Modifications </th>' +
 							'</tr>';
-					form.find('#jejeje').append(myDiv);
+				form.find('#jejeje').append(myDiv);
 				for(var i =0 ; i< data.length;i++){
 					var replacing = '<tr>' + '<td>' + data[i]._id + '</td>' + 
 									'<td>' + data[i].firstName + '</td>' + 
@@ -40,14 +40,29 @@ var agregar = (function(){
 					
 					form.find("#jojojo").append(replacing);
 					form.find('#'+i).attr('data-id', i).off('click').on('click',function(){
-						console.log(i);
-						/*	function modifyUser(data){
 	 					var iN = $(this).attr('data-id');
-	 					$.ajax({
-	 					url:'http://connectedin.herokuapp.com/person:'+data[iN]._id,
-	 					method: 'PUT',
-	 	});
-	 }*/
+						console.log(iN);
+						var user = {
+							firstName: form.find('#nombre').val(), 
+							lastName: form.find('#apellido').val(),
+							gender: form.find('#sexo').val(),
+							birthday: form.find('#edad').val(),
+							address: form.find('#direcc').val(),
+							photo: form.find('#foto').val(),
+							email: form.find('#email').val()+'@gmail',
+							password: form.find('#contra').val(),
+							education: form.find('#educ').val(),
+							experience: form.find('#exp').val()
+						};
+						$.ajax({
+		 					url:'http://connectedin.herokuapp.com/person/'+data[iN]._id,
+		 					method: 'PUT',
+		 					data: JSON.stringify(user),
+							contentType: 'application/json',
+							success: function(data){
+								alert('User Modified');
+							}
+						});
 					});
 				}
 				form.find("#jejeje").append('</table>');
@@ -59,20 +74,18 @@ var agregar = (function(){
 	function addUser(e){
 		e.preventDefault();
 		var user = {
-			firstName: form.find('#nombre').val(), 
-			lastName: form.find('#apellido').val(),
-			gender: form.find('#sexo').val(),
-			birthday: form.find('#edad').val(),
-			address: form.find('#direcc').val(),
-			photo: form.find('#foto').val(),
-			email: form.find('#email').val()+'@gmail',
-			password: form.find('#contra').val(),
-			education: form.find('#educ').val(),
-			experience: form.find('#exp').val()
+		firstName: form.find('#nombre').val(), 
+		lastName: form.find('#apellido').val(),
+		gender: form.find('#sexo').val(),
+		birthday: form.find('#edad').val(),
+		address: form.find('#direcc').val(),
+		photo: form.find('#foto').val(),
+		email: form.find('#email').val()+'@gmail',
+		password: form.find('#contra').val(),
+		education: form.find('#educ').val(),
+		experience: form.find('#exp').val()
 		};
 		console.log(user);
-
-
 		$.ajax({ 
 			url:'http://connectedin.herokuapp.com/person',
 			method: 'POST',
