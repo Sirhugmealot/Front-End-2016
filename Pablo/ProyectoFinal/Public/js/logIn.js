@@ -1,15 +1,45 @@
 var agregar = (function(){
-	var form = $('.container');
+	var form = $('.container'),
+		usuario,
+		contrasena;
 	form.find('#logIn').off('click').on('click',logIn);
 	
 
 	function logIn(e){
 		e.preventdefault;
+		usuario = form.find('#user').val();
+		contrasena = form.find('#pass').val();
+		$.ajax({
+			url:'http://connectedin.herokuapp.com/person',
+			method: 'GET',
+			success: function(data){
+				if(usuario){
+					
+					var	b=0,
+						i=0;
+					while (b==0 && i<data.length){
+						if(usuario==data[i].email){
+							b=1;
+							template();
+						}
+						else {
+							i++;
+						}
+					}
+					if(b==0){
+						$('#inval').css("display","block");	
+					}
+				}
+				else{
+					$('#requi').css("display","block");
+				}
+			}
+		});
+	}
+	function template(){
 		var userCre = '<button class="form-control" id="createUsers" type="button" class="btn">Create User</button>',
 			userLis	= '<button class="form-control" id="listUsers" type="button" class="btn">List Users</button>',
 			userNam = '<p>Hello %name%<p>',
-			usuario = form.find('#user').val(),
-			contrasena = form.find('#pass').val(),
 			replaced = userNam.replace(/%name%/gi, usuario);
 		form.find('#user').remove();
 		form.find('#pass').remove();
@@ -38,7 +68,7 @@ var agregar = (function(){
 		birthday: form.find('#edad').val(),
 		address: form.find('#direcc').val(),
 		photo: form.find('#foto').val(),
-		email: form.find('#email').val()+'@gmail',
+		email: form.find('#email').val(),
 		password: form.find('#contra').val(),
 		};
 		console.log(user);
