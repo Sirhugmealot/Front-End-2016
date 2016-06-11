@@ -1,5 +1,8 @@
 var agregar = (function(){
 	var form = $('.container'),
+		inval = form.find('#inval'),
+		requi = form.find('#requi'),
+		contr = form.find('#passin'),
 		usuario,
 		contrasena;
 	form.find('#logIn').off('click').on('click',logIn);
@@ -13,30 +16,43 @@ var agregar = (function(){
 			url:'http://connectedin.herokuapp.com/person',
 			method: 'GET',
 			success: function(data){
-				if(usuario){
+				if(usuario){ //validacion del login
 					
 					var	b=0,
+						c=0,
 						i=0;
 					while (b==0 && i<data.length){
-						if(usuario==data[i].email){
-							b=1;
-							template();
+						if (usuario==data[i].email) {
+							if(contrasena==data[i].password){
+								b=1;
+								template();
+							}
+							else {
+								i++;
+								inval.css("display","none");
+								requi.css("display","none");
+								contr.css("display","block");
+							}
 						}
-						else {
+						else{
 							i++;
+							requi.css("display","none");
+							contr.css("display","none");
+							inval.css("display","block");	
 						}
-					}
-					if(b==0){
-						$('#inval').css("display","block");	
 					}
 				}
 				else{
-					$('#requi').css("display","block");
+					inval.css("display","none");
+					requi.css("display","block");
 				}
 			}
 		});
 	}
 	function template(){
+		contr.css("display","none");
+		inval.css("display","none");
+		requi.css("display","none");
 		var userCre = '<button class="form-control" id="createUsers" type="button" class="btn">Create User</button>',
 			userLis	= '<button class="form-control" id="listUsers" type="button" class="btn">List Users</button>',
 			userNam = '<p>Hello %name%<p>',

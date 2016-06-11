@@ -10,9 +10,12 @@
 			#inval{
 				display: none;
 			}
+			#passin{
+				display: none;
+			}
 		</style>
 	</head>
-	<body>
+	<header>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 col-xs-12">
@@ -26,6 +29,7 @@
 								</div>
 								<div class="col-sm-4" id="list">
 									<input class="form-control" type="password" placeholder="Password" id="pass">
+									<span class="help-block invalid" id="passin">Password invalid</span>
 								</div>
 								<div class="col-sm-4" id="name">
 									<button class="form-control" id="logIn" type="button" class="btn">Log In</button>
@@ -37,6 +41,8 @@
 				</div>
 			</div>
 		</div>
+	</header>
+	<body>
 		<script type="text/javascript" src="js/jquery-2.2.3.js"></script>
 		<script type="text/javascript" src="js/logIn.js"></script>
 	</body>
