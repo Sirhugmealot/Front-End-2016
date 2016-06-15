@@ -81,8 +81,8 @@ function toDo(){
 			console.log(educc, educationa, todo);
 
 
-		if(todo){
-			if(todo[0]!=""){
+		if(todo && title){
+			if(todo[0]!="" && title!=""){
 				if(todo.length!=0){
 					// Muestro el education
 					for(var j=0;j<todo.length;j++){
